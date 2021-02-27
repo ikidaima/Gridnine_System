@@ -1,0 +1,108 @@
+.flight {
+  &__list {
+    list-style-type: none;
+  }
+
+  &__item:not(:last-child) {
+    margin-bottom: 1.5em;
+  }
+}
+
+.card {
+  font-size: 20px;
+
+  &__container {
+    padding-right: $middle-padding;
+    padding-left: $middle-padding;
+  }
+
+  &__head {
+    padding-top: 0.2em;
+    padding-bottom: 0.2em;
+    color: #fff;
+    background-color: #3aa1f5;
+  }
+
+  &__head > &__container {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+  }
+
+  &__price {
+    text-align: right;
+  }
+
+  &__price-description {
+    font-size: 0.5em;
+  }
+
+  &__button {
+    width: 100%;
+    padding: 0.5em;
+    color: #fff;
+    text-align: center;
+    background-color: #f0c424;
+    border: 0;
+  }
+
+  &__text {
+    font-size: 0.8em;
+
+    &--blue {
+      color: #3aa1f5;
+    }
+
+    &--orange {
+      color: #f0c424;
+    }
+  }
+}
+
+.leg {
+  padding-top: $small-padding;
+  padding-bottom: $small-padding;
+
+  &__route {
+    padding-bottom: $small-padding;
+    border-bottom: 1px solid #ccc;
+  }
+
+  &__carrier {
+    margin-top: 1em;
+    font-size: 0.8em;
+  }
+
+  &__stops {
+    position: relative;
+    width: 80%;
+    height: 1px;
+    margin-right: auto;
+    margin-left: auto;
+    border-bottom: 1px solid #ccc;
+  }
+}
+
+.time {
+  display: flex;
+  justify-content: space-between;
+  margin-top: 1em;
+  margin-bottom: 1em;
+
+  &__duration {
+    padding-left: 30px;
+    background-image: url('../static/img/clock.png');
+    background-repeat: no-repeat;
+    background-position: left center;
+    background-size: contain;
+  }
+}
+
+.stop--position {
+  position: absolute;
+  top: 0;
+  left: 50%;
+  padding: 0 $small-padding;
+  background-color: #fff;
+  transform: translate(-50%, -50%);
+}

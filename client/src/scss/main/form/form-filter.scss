@@ -1,0 +1,53 @@
+.form {
+  max-width: 400px;
+  padding: $large-padding $middle-padding;
+  background-color: $form-bg-color;
+  border-radius: $middle-padding;
+
+  &__heading-item {
+    margin-bottom: $small-padding;
+    font-weight: 700;
+
+    &:not(:first-child) {
+      margin-top: 1em;
+    }
+  }
+
+  &__input-wrapper {
+    display: block;
+  }
+
+  &__input-wrapper--flex {
+    display: flex;
+  }
+
+  &__input-wrapper:not(:last-child) {
+    margin-bottom: 0.5em;
+  }
+
+  &__input-description {
+    margin-left: 0.5em;
+
+    &::before {
+      content: '- ';
+    }
+  }
+
+  &__input-description--left {
+    margin-right: 0.5em;
+  }
+
+  &__input-description--single-row {
+    overflow: hidden;
+    white-space: nowrap;
+    text-overflow: ellipsis;
+  }
+
+  &__input-description--price {
+    white-space: nowrap;
+  }
+
+  &__filtering--mt {
+    margin-top: 1em;
+  }
+}

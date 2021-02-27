@@ -1,0 +1,4 @@
+export const CHANGE_TYPE_SORT = 'CHANGE_TYPE_SORT';
+export const SET_FILTER_STOP = 'SET_FILTER_STOP';
+export const SET_FILTER_PRICE = 'SET_FILTER_PRICE';
+export const GET_FLIGHT = 'GET_FLIGHT';

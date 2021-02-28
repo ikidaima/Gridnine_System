@@ -6,6 +6,15 @@
   &__item:not(:last-child) {
     margin-bottom: 1.5em;
   }
+
+  &__btn {
+    display: block;
+    width: 200px;
+    margin-top: 1em;
+    margin-right: auto;
+    margin-left: auto;
+    padding: $small-padding;
+  }
 }
 
 .card {
@@ -20,7 +29,7 @@
     padding-top: 0.2em;
     padding-bottom: 0.2em;
     color: #fff;
-    background-color: #3aa1f5;
+    background-color: $flight-blue;
   }
 
   &__head > &__container {
@@ -46,15 +55,19 @@
     border: 0;
   }
 
+  &__leg:not(:last-child) {
+    border-bottom: 2px solid $flight-blue;
+  }
+
   &__text {
     font-size: 0.8em;
 
     &--blue {
-      color: #3aa1f5;
+      color: $flight-blue;
     }
 
     &--orange {
-      color: #f0c424;
+      color: $flight-orange;
     }
   }
 }

@@ -2,7 +2,7 @@ import React from 'react';
 import { useSelector, useDispatch } from 'react-redux';
 
 import { SORT_BY_FLIGHT_TIME, SORT_BY_PRICE_DECREASE, SORT_BY_PRICE_INCREASE } from '../../constants/constants';
-import { changeTypeOfSort } from '../../store/action';
+import { changeTypeOfSort, sortFlights } from '../../store/action';
 
 const Sorting = () => {
   const dispatch = useDispatch();
@@ -10,6 +10,7 @@ const Sorting = () => {
 
   const radioInputHandler = (event) => {
     dispatch( changeTypeOfSort(event.target.value) );
+    dispatch( sortFlights(event.target.value) );
   }
 
   return (

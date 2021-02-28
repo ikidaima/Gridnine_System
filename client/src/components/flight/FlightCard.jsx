@@ -27,7 +27,6 @@ const FlightCard = ( { flight } ) => {
             const arrivalAirportUid = leg.segments[numberOfLastSegment].arrivalAirport.uid;
             const arrivalDate = leg.segments[numberOfLastSegment].arrivalDate;
 
-
             return (
               <FlightLeg
                 key={index}
@@ -41,6 +40,7 @@ const FlightCard = ( { flight } ) => {
                 arrivalDate={arrivalDate}
                 carrier={carrier}
                 stops={numberOfLastSegment}
+                duration={leg.duration}
               />
             );
           })

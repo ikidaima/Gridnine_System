@@ -8,14 +8,15 @@ const PORT = 3000;
 const __dirname = path.resolve();
 const app = express();
 
+app.use( express.static(path.join(__dirname, '../client/dist')) );
 app.use( cors() );
 
 app.get('/', (req, res) => {
-  res.send( '<h1>Hello</h1>' );
+  res.sendFile( path.join(__dirname, '../client/dist/index.html') );
 });
 
 app.get('/flight', (req, res) => {
-  res.json( data );
+  res.json( JSON.stringify(data) );
 });
 
 app.listen(PORT, () => {

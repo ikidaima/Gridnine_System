@@ -6,7 +6,7 @@ export const ONE_STOP = 1;
 export const KEY_STOPS = 'stops';
 export const KEY_PRICE = 'price';
 export const KEY_AIRLINES = 'airlines';
-export const MAX_PRICE_VALUE = 100000;
+export const MAX_PRICE_VALUE = 1000000;
 export const LOCAL_RUS = 'ru';
 export const OPTION_TIME = {
   hour: '2-digit',

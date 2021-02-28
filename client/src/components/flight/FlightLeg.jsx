@@ -11,11 +11,10 @@ const FlightLeg = (props) => {
   const arrivalTime = arrivalDateTime.toLocaleTimeString(LOCAL_RUS, OPTION_TIME);
   const arrivalDate = arrivalDateTime.toLocaleDateString(LOCAL_RUS, OPTION_DATE);
   const stops = props.stops ? `${props.stops} ${declOfNum(props.stops, ARR_WORD_TRANSFER)}` : null;
-  const duration = (arrivalDateTime - departDateTime) / 1000 / 60;
 
-  const numberOfMinute = duration % 60;
-  const numberOfHour = Math.floor(duration / 60 % 24);
-  const numberOfDay = Math.floor(duration / 60 / 24);
+  const numberOfMinute = props.duration % 60;
+  const numberOfHour = Math.floor(props.duration / 60 % 24);
+  const numberOfDay = Math.floor(props.duration / 60 / 24);
 
   return (
     <div className="card__leg leg">

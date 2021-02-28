@@ -1,13 +1,13 @@
 import { KEY_AIRLINES, KEY_PRICE, KEY_STOPS, MAX_PRICE_VALUE } from "../../constants/constants";
-import { SET_FILTER_PRICE, SET_FILTER_STOP } from "../../constants/typeOfActions";
+import { SET_FILTER_AIRLINE, SET_FILTER_PRICE, SET_FILTER_STOP } from "../../constants/typeOfActions";
 
 const initState = {
   [KEY_STOPS]: [false, false],
   [KEY_PRICE]: {
     min: 0,
-    max: 100000
+    max: MAX_PRICE_VALUE
   },
-  [KEY_AIRLINES]: []
+  [KEY_AIRLINES]: new Set()
 };
 
 const filterReducer = (state = initState, action) => {
@@ -36,6 +36,19 @@ const filterReducer = (state = initState, action) => {
         newState[KEY_PRICE]['max'] = newState[KEY_PRICE]['min'];
       }
       return newState;
+
+    case SET_FILTER_AIRLINE:
+      const airlines = new Set( state[KEY_AIRLINES] );
+
+      if ( action.payload.isChecked ) {
+        airlines.add(action.payload.airline);
+      } else {
+        airlines.delete(action.payload.airline);
+      }
+      return {
+        ...state,
+        [KEY_AIRLINES]: airlines
+      }
 
     default:
       return state;

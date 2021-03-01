@@ -1,20 +1,30 @@
 import { KEY_AIRLINES, KEY_PRICE, KEY_STOPS, MAX_PRICE_VALUE } from "../../constants/constants";
-import { SET_FILTER_AIRLINE, SET_FILTER_PRICE, SET_FILTER_STOP } from "../../constants/typeOfActions";
+import { INIT_FILTER_AIRLINES, SET_FILTER_AIRLINE, SET_FILTER_PRICE, SET_FILTER_STOP, TOGGLE_FILTER_AIRLINE_DISABLED } from "../../constants/typeOfActions";
+import getAirlinesBestPrice from "../../lib/getAirlinesBestPrice";
 
 const initState = {
-  [KEY_STOPS]: [false, false],
+  [KEY_STOPS]: [true, true],
   [KEY_PRICE]: {
     min: 0,
     max: MAX_PRICE_VALUE
   },
-  [KEY_AIRLINES]: new Set()
+  [KEY_AIRLINES]: {}
 };
 
 const filterReducer = (state = initState, action) => {
-  switch (action.type) {
-    case SET_FILTER_STOP:
-      const stopsIsChanged = [ ...state[KEY_STOPS] ];
+  const newStateAirlines = {
+    ...state[KEY_AIRLINES]
+  };
+  const stopsIsChanged = [ ...state[KEY_STOPS] ];
 
+  switch (action.type) {
+    case INIT_FILTER_AIRLINES:
+      return {
+        ...state,
+        [KEY_AIRLINES]: getAirlinesBestPrice(action.payload)
+      }
+    
+    case SET_FILTER_STOP:
       stopsIsChanged[action.payload.numberOfStop] = action.payload.isChecked;
 
       return {
@@ -38,16 +48,17 @@ const filterReducer = (state = initState, action) => {
       return newState;
 
     case SET_FILTER_AIRLINE:
-      const airlines = new Set( state[KEY_AIRLINES] );
+      newStateAirlines[action.payload.airline]['checked'] = action.payload.isChecked;
 
-      if ( action.payload.isChecked ) {
-        airlines.add(action.payload.airline);
-      } else {
-        airlines.delete(action.payload.airline);
-      }
       return {
         ...state,
-        [KEY_AIRLINES]: airlines
+        [KEY_AIRLINES]: newStateAirlines
+      }
+
+    case TOGGLE_FILTER_AIRLINE_DISABLED:
+      return {
+        ...state,
+        [KEY_AIRLINES]: action.payload
       }
 
     default:

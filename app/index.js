@@ -16,7 +16,7 @@ app.get('/', (req, res) => {
 });
 
 app.get('/flight', (req, res) => {
-  res.json( JSON.stringify(data) );
+  res.json( JSON.stringify(data.result.flights) );
 });
 
 app.listen(PORT, () => {

@@ -2,7 +2,7 @@ import React from 'react';
 import { useSelector, useDispatch } from 'react-redux';
 
 import { SORT_BY_FLIGHT_TIME, SORT_BY_PRICE_DECREASE, SORT_BY_PRICE_INCREASE } from '../../constants/constants';
-import { changeTypeOfSort, sortFlights } from '../../store/action';
+import { changeTypeOfSort, sortFlights, filterFlights } from '../../store/action';
 
 const Sorting = () => {
   const dispatch = useDispatch();

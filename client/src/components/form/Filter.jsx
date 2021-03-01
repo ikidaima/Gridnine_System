@@ -2,40 +2,34 @@ import React from 'react';
 import { useSelector, useDispatch } from 'react-redux';
 
 import { KEY_AIRLINES, NONE_STOPE, ONE_STOP } from '../../constants/constants';
-import { setFilterAirline, setFilterPrice, setFilterStops } from '../../store/action';
+import { filterFlights, setFilterAirline, setFilterPrice, setFilterStops, sortFlights, toggleFilterAirlineDisabled } from '../../store/action';
 import isNumber from '../../lib/isNumber';
 
 
 const Filter = () => {
   const dispatch = useDispatch();
   const filter = useSelector(state => state.filter);
-  const flights = useSelector(state => state.flights);
-  const airlines = {};
-
-  flights.result ? 
-    flights.result.flights.map(flight => {
-      const airline = flight.flight.carrier.caption;
-      const price = parseFloat(flight.flight.price.total.amount);
-
-      if ( airlines[airline] === undefined || airlines[airline] > price ) {
-        airlines[airline] = price;
-      }
-
-    }) : 
-    null;
 
   const checkboxStopHandler = (event) => {
     const numberOfStop = +event.target.value;
     const isChecked = event.target.checked;
 
     dispatch( setFilterStops(numberOfStop, isChecked) );
+    dispatch( filterFlights() );
+    dispatch( sortFlights() );
+    dispatch( toggleFilterAirlineDisabled() );
   };
   const checkboxAirlineHandler = (event) => {
     dispatch( setFilterAirline(event.target.name, event.target.checked) );
+    dispatch( filterFlights() );
+    dispatch( sortFlights() );
   };
   const inputPriceHandler = (event) => {
     if ( isNumber(event.nativeEvent.data) || event.nativeEvent.inputType === 'deleteContentBackward' ) {
       dispatch( setFilterPrice(+event.target.value, event.target.name) );
+      dispatch( filterFlights() );
+      dispatch( sortFlights() );
+      dispatch( toggleFilterAirlineDisabled() );
     }
   }
 
@@ -95,19 +89,22 @@ const Filter = () => {
       <div className="form__body-item">
 
         {
-          Object.keys(airlines).sort().map( (airline, index) => {
+          Object.keys(filter.airlines).map( (airline, index) => {
+
             return (
               <label className="form__input-wrapper form__input-wrapper--flex" key={index}>
                   <input
                     type="checkbox"
                     name={airline}
-                    checked={filter[KEY_AIRLINES].has(airline)}
+                    checked={filter[KEY_AIRLINES][airline]['checked']}
                     onChange={checkboxAirlineHandler}
+                    disabled={filter.airlines[airline]['disabled']}
                   />
                   <span className="form__input-description form__input-description--single-row">{airline}</span>&#8194;
-                  <span className="form__input-description--price">от {airlines[airline]} р.</span>
+                  <span className="form__input-description--price">от {filter.airlines[airline]['price']} р.</span>
                 </label>
             );
+
           })
         }
 

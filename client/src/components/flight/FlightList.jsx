@@ -7,24 +7,30 @@ import Loading from '../generic/Loading';
 
 
 const FlightList = () => {
-  const flights = useSelector(state => state.flights);
+  const flights = useSelector(state => state.flightsIsFiltered);
+  const isLoading = useSelector(state => state.isLoadingList);
+
   const [numberOfListItem, setNumberOfListItem] = useState(10);
   const incrementNumber = 10;
 
   const buttonClickHandler = () => {
 
-    if (numberOfListItem < flights.result.flights.length) {
+    if (numberOfListItem < flights.length) {
       setNumberOfListItem(state => state + incrementNumber);
     }
 
   }
 
-  if (flights.result) {
+  if (isLoading) {
+    return <Loading isLoading={true}/>
+  }
+
+  if (flights.length) {
     return (
       <Fragment>
         <ul className="flight__list">
           {
-            flights.result.flights.map((flight, index) => {
+            flights.map((flight, index) => {
               if (index < numberOfListItem) {
                 return (
                   <li className="flight__item" key={flight.flightToken}>
@@ -35,17 +41,22 @@ const FlightList = () => {
             })
           }
         </ul>
-        <button
-          className="flight__btn"
-          onClick={buttonClickHandler}
-        >
-          Показать еще
-        </button>
+        {
+          numberOfListItem < flights.length ?
+          <button
+            className="flight__btn"
+            onClick={buttonClickHandler}
+          >
+            Показать еще
+          </button> :
+          null
+        }
       </Fragment>
     )
+  } else {
+    return <p>Нет билетов по заданному фильтру</p>
   }
 
-  return <Loading isLoading={true}/>;
 };
 
 export default FlightList;

@@ -40,7 +40,7 @@ export function setFilterPrice(value, extremum) {
   }
 }
 
-export function initFilterAirline() {
+export function initFilterAirlineStop() {
   return function(dispatch, getState) {
     const state = getState();
 
@@ -127,7 +127,7 @@ export function fetchFlights() {
       .then(answer => {
         answer = JSON.parse(answer);
         dispatch( getFlights(answer) );
-        dispatch( initFilterAirline() );
+        dispatch( initFilterAirlineStop() );
         dispatch( filterFlights() );
         dispatch( sortFlights() );
         dispatch( toggleFilterAirlineDisabled() );

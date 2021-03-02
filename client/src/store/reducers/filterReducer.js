@@ -1,6 +1,6 @@
 import { KEY_AIRLINES, KEY_PRICE, KEY_STOPS, MAX_PRICE_VALUE } from "../../constants/constants";
 import { INIT_FILTER_AIRLINES, SET_FILTER_AIRLINE, SET_FILTER_PRICE, SET_FILTER_STOP, TOGGLE_FILTER_AIRLINE_DISABLED } from "../../constants/typeOfActions";
-import getAirlinesBestPrice from "../../lib/getAirlinesBestPrice";
+import getInitFilter from "../../lib/getInitFilter.js";
 
 const initState = {
   [KEY_STOPS]: [true, true],
@@ -19,9 +19,11 @@ const filterReducer = (state = initState, action) => {
 
   switch (action.type) {
     case INIT_FILTER_AIRLINES:
+      const initStateAirlinesAndStops = getInitFilter(action.payload);
       return {
         ...state,
-        [KEY_AIRLINES]: getAirlinesBestPrice(action.payload)
+        [KEY_AIRLINES]: initStateAirlinesAndStops.airlines,
+        [KEY_STOPS]: initStateAirlinesAndStops.stops
       }
     
     case SET_FILTER_STOP:

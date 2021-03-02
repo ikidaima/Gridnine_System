@@ -4,6 +4,7 @@ import { useSelector, useDispatch } from 'react-redux';
 import { KEY_AIRLINES, NONE_STOPE, ONE_STOP } from '../../constants/constants';
 import { filterFlights, setFilterAirline, setFilterPrice, setFilterStops, sortFlights, toggleFilterAirlineDisabled } from '../../store/action';
 import isNumber from '../../lib/isNumber';
+import CheckboxTransfer from './CheckbpxTransfer';
 
 
 const Filter = () => {
@@ -39,24 +40,18 @@ const Filter = () => {
         <span>Фильтровать</span>
       </div>
       <div className="form__body-item">
-        <label className="form__input-wrapper">
-          <input
-            type="checkbox"
-            value={ONE_STOP}
-            checked={ filter.stops[ONE_STOP] }
-            onChange={checkboxStopHandler}
-          />
-          <span className="form__input-description">1 - пересадка</span>
-        </label>
-        <label className="form__input-wrapper">
-          <input
-            type="checkbox"
-            value={NONE_STOPE}
-            checked={ filter.stops[NONE_STOPE] } 
-            onChange={checkboxStopHandler}
-          />
-          <span className="form__input-description">без пересадок</span>
-        </label>
+        {
+          filter.stops.map((stop, index) => {
+            return (
+              <CheckboxTransfer
+                key={index}
+                stop={index}
+                checked={stop}
+                handler={checkboxStopHandler}
+              />
+            )
+          })
+        }
       </div>
       
       <div className="form__heading-item">
